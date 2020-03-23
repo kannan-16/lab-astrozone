@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.User;
+import service.AstroCalculator;
+
 
 @WebServlet(urlPatterns = {"/entervalue"})
 public class AstroFormController extends HttpServlet {
@@ -27,6 +30,10 @@ public class AstroFormController extends HttpServlet {
 		String month=request.getParameter("dob2");
 		String year=request.getParameter("dob3");
 		String dob = date+"-"+month+"-"+year;	
+
+		User  user = new User(name,date,month);
+		AstroCalculator astro = new AstroCalculator();
+		String astrosign=astro.findSign(user);
 		
 		if(astrosign.equals("Aquarius")){
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/Outputview.jsp");
